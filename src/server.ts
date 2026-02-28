@@ -158,6 +158,11 @@ function createMcpServer(): Server {
 const app = express();
 app.use(express.json());
 
+// OpenAI Domain Verification — ChatGPT App SDK
+app.get('/.well-known/openai-apps-challenge', (_req, res) => {
+  res.type('text/plain').send('xr7LFaQzddtuyuxnxZO-fRJdovEYwqhm1V7CrjXhktg');
+});
+
 // Health Check — Render.com braucht das für den Alive-Check
 app.get('/health', (_req, res) => {
   res.json({
