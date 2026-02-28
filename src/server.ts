@@ -28,6 +28,11 @@ const TOOLS = [
   {
     name: 'start_soul_builder',
     description: 'Startet eine neue Soul Builder Session. Gibt Willkommensnachricht und erste Frage zurück.',
+    annotations: {
+      readOnlyHint: false,      // Creates a new session entry in memory
+      openWorldHint: false,     // Only interacts with local in-memory session storage, no external APIs
+      destructiveHint: false,   // Creates new data only, never modifies or deletes existing sessions
+    },
     inputSchema: {
       type: 'object',
       properties: {
@@ -42,6 +47,11 @@ const TOOLS = [
   {
     name: 'answer_question',
     description: 'Nimmt eine Antwort auf die aktuelle Frage entgegen und gibt die nächste Frage oder Abschluss-Status zurück.',
+    annotations: {
+      readOnlyHint: false,      // Updates session state: stores answer and increments step counter
+      openWorldHint: false,     // Only modifies local in-memory session state, no external systems involved
+      destructiveHint: false,   // Adds/updates user answers additively; no data is deleted or overwritten destructively
+    },
     inputSchema: {
       type: 'object',
       properties: {
@@ -60,6 +70,11 @@ const TOOLS = [
   {
     name: 'generate_soul',
     description: 'Generiert das fertige SOUL.md aus allen gesammelten Antworten.',
+    annotations: {
+      readOnlyHint: true,       // Only reads session state to compile the SOUL.md; no state is modified
+      openWorldHint: false,     // Only reads local in-memory session data, no external systems
+      destructiveHint: false,   // Pure read + format operation; nothing is modified or deleted
+    },
     inputSchema: {
       type: 'object',
       properties: {
@@ -74,6 +89,11 @@ const TOOLS = [
   {
     name: 'export_soul',
     description: 'Exportiert das SOUL.md als plain text zum Kopieren oder Download.',
+    annotations: {
+      readOnlyHint: true,       // Only reads session state and formats SOUL.md for export; no state modification
+      openWorldHint: false,     // Only reads local in-memory session data, no external systems
+      destructiveHint: false,   // Read-only export operation; no data is modified or deleted
+    },
     inputSchema: {
       type: 'object',
       properties: {
