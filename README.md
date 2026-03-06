@@ -28,6 +28,12 @@ npm run dev
 
 ## API
 
+### Landing Page
+```
+GET /
+```
+Response: production-style HTML landing page (dark cinematic design) for Soul Builder.
+
 ### Health Check
 ```
 GET /health
@@ -41,6 +47,26 @@ Response:
   "activeSessions": 0
 }
 ```
+
+### MCP Endpoint Info
+```
+GET /mcp
+```
+Response:
+```json
+{
+  "endpoint": "POST /mcp",
+  "protocol": "MCP Streamable HTTP",
+  "service": "soul-builder",
+  "version": "1.0.0"
+}
+```
+
+### OpenAI Domain Verification
+```
+GET /.well-known/openai-apps-challenge
+```
+Response: plain text challenge token.
 
 ### MCP Tools
 

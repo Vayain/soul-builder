@@ -20,6 +20,7 @@ import {
   exportSoul,
   getActiveSessionCount,
 } from './soul-builder';
+import { renderLandingPage } from './landing-page';
 
 const PORT = process.env.PORT || 3000;
 
@@ -193,14 +194,9 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// Root — für den Browser (App Directory Link)
+// Root — Premium Landing Page
 app.get('/', (_req, res) => {
-  res.json({
-    name: 'Soul Builder',
-    description: 'Gib deinem KI-Agenten eine Identität. — ag3nt.id',
-    mcp_endpoint: '/mcp',
-    health: '/health',
-  });
+  res.type('html').send(renderLandingPage());
 });
 
 /**
